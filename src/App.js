@@ -1,6 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 function App() {
   const [value, setValue] = useState('');
+
+  // This count will be doubled in development since react runs each render cycle twice to avoid impure renders
+  const renderCount = useRef(0);
+  renderCount.current = renderCount.current + 1;
 
 // putting the default value to -1 because it renders once when opening the page, so first render is from -1 to 0 on opening page
   const [count, setCount] = useState(-1);
@@ -17,6 +21,7 @@ function App() {
     <div>
       <input type="text" value={value} onChange={onChange} />
       <div>Value changes: {count}</div>
+      <div>Renders: {renderCount.current}</div>
 
     </div>
   );
